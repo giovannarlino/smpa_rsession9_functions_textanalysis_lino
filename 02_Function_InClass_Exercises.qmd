@@ -27,9 +27,14 @@ options(tigris_class = "sf")
 
 ```{r}
 
+sum_two_numbers <- function(x,y){
+  
+return(x + y)
+  
+}
 
-
-
+result <- sum_two_numbers (5,7)
+print(result)
 
 ```
 
@@ -37,9 +42,13 @@ options(tigris_class = "sf")
 
 ```{r}
 
+mean_of_numbers <- function(list){
+  return(mean(list))
+}
 
-
-
+list <- c(1,4,6,8,10)
+result <- mean_of_numbers(list)
+print(result)
 
 
 ```
@@ -48,12 +57,53 @@ options(tigris_class = "sf")
 *"The mean is ___"*. (Where the blank is the mean.)
 
 ```{r}
+mean_of_numbers_with_text <- function(list){
+  return(paste0("The mean is ", mean_of_numbers(list)))
+}
+
+list <- c(1,4,6,8,10)
+result <- mean_of_numbers(list)
+print(result)
+
+```
+
+Another option to create a code that showcases the mean with text: 
+
+```{r}
+numberlist <- c(12,14,15)
+
+resultingmean <- mean(numberlist)
+
+paste0("The mean is ", resultingmean)
+```
 
 
+```{r}
 
+mean_with_text <- function(numberlist) {
+  resultingmean <- mean(numberlist)
+  finaltext <- paste0("The mean is ", resultingmean)
+  return(finaltext)
+  }
+
+mean_with_text(c(4,7,10))
 
 
 ```
+
+
+```{r}
+
+paste0("The mean is ", mean_of_numbers(list))
+
+```
+```{r}
+mean_of_numbers_with_text(c(40,30,50))
+
+#the c is needed before entering a list 
+
+```
+
 
 For these next two questions, we'll use the `flights` dataset from the package `nycflights13`. It contains records of individual airline flights departing at New York's three metro airports, JFK, LaGuardia (LGA) and Newark (EWR). Run the following chunk to load the data. (Make sure you've actually installed the package, of course.)
 
@@ -67,11 +117,27 @@ head(flights)
 4) Using the `flights` dataset, create a function that filters the data frame to only include records from a single originating airport (column name `origin`). In other words, it should let you enter an origin airport and return all the records from just that airport.
 
 ```{r}
+#creating the function
+
+airportname <- "LGA"
+
+flights %>% 
+  filter(origin == airportname)
 
 
+filter_flights_by_origin <- function(airportname) {
+  result <- flights %>% 
+  filter(origin == airportname)
+  
+  return(result)
+}
+```
 
 
+```{r}
+#returning values 
 
+filter_flights_by_origin("LGA")
 
 
 ```
@@ -83,11 +149,24 @@ head(flights)
 -   aggregates (i.e. counts) the results by airline (`carrier`) to show how many flights each airline has from that airport.
 
 ```{r}
+airportname <- "LGA"
+
+flights %>% 
+  filter(origin == airportname) %>% 
+  count(carrier)
+```
 
 
+```{r}
+count_byairline_for_one_airport <- function(airportname) {
+  result <- flights %>% 
+    filter(origin == airportname) %>% 
+    count(carrier, sort = TRUE). #sort = TRUE showcases from the highest value to the lowest 
+  
+  return(result)
+}
 
-
-
+count_byairline_for_one_airport("EWR")
 
 ```
 
